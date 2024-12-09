@@ -29,24 +29,11 @@ public class TransactionController {
         transactionService.addObserver(new CustomerNotifier());
     }
 
-    /**
-     * Создание новой транзакции.
-     *
-     * @param type   Тип транзакции (например, PAYMENT, TRANSFER)
-     * @param amount Сумма транзакции
-     * @return Созданная транзакция
-     */
     @PostMapping
     public Transaction createTransaction(@RequestParam String type, @RequestParam BigDecimal amount) {
         return transactionService.createTransaction(type, amount);
     }
 
-    /**
-     * Обработка транзакции.
-     *
-     * @param transactionId ID транзакции
-     * @param mode          Режим обработки (например, standard или fraudCheck)
-     */
     @PostMapping("/{transactionId}/process")
     public void processTransaction(@PathVariable String transactionId, @RequestParam String mode) {
         if ("standard".equalsIgnoreCase(mode)) {
