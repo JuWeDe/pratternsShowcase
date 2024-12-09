@@ -21,10 +21,8 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     public TransactionController() {
-        // Создаем сервис транзакций
+    
         this.transactionService = new TransactionService();
-
-        // Добавляем наблюдателей (Observer)
         transactionService.addObserver(new TransactionLogger());
         transactionService.addObserver(new CustomerNotifier());
     }
