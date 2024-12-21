@@ -1,42 +1,34 @@
 package com.example.patternsshowcase.model;
 
+import com.example.patternsshowcase.visitor.TransactionVisitor;
+
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public class Transaction {
-    private String id;
-    private String type; // PAYMENT, TRANSFER, REFUND
-    private BigDecimal amount;
-    private String status; // PENDING, COMPLETED, FAILED
+    private final String id;
+    private final String type;
+    private final BigDecimal amount;
+    private String status;
 
-    public Transaction(String id, String type, BigDecimal amount, String status) {
-        this.id = id;
+    public Transaction(String type, BigDecimal amount) {
+        this.id = UUID.randomUUID().toString();
         this.type = type;
         this.amount = amount;
-        this.status = status;
+        this.status = "PENDING";
     }
 
+    // Геттеры для сериализации
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public BigDecimal getAmount() {
         return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
     }
 
     public String getStatus() {
@@ -45,5 +37,10 @@ public class Transaction {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    // Поддержка Visitor
+    public void accept(TransactionVisitor visitor) {
+        visitor.visit(this);
     }
 }

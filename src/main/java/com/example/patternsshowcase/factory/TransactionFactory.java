@@ -9,9 +9,8 @@ public class TransactionFactory {
     public static Transaction createTransaction(String type, BigDecimal amount) {
         return new Transaction(
                 UUID.randomUUID().toString(),
-                type,
-                amount,
-                "PENDING" // Default status
+                amount
+                // Default status
         );
     }
 }
